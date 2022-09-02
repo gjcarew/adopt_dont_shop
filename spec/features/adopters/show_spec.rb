@@ -21,9 +21,14 @@ RSpec.describe 'application show page' do
       end
 
       it 'shows pets associated with application' do
-        save_and_open_page
         expect(page).to have_content("Clawdia")
         expect(page).to have_content("Mr. Pirate")
+        save_and_open_page
+      end
+
+      it "links pets to pets show page" do
+        click_on("Clawdia")
+        expect(current_path).to eq("/pets/#{@clawdia.id}")
       end
     end
   end
