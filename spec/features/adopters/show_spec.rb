@@ -23,7 +23,6 @@ RSpec.describe 'application show page' do
       it 'shows pets associated with application' do
         expect(page).to have_content("Clawdia")
         expect(page).to have_content("Mr. Pirate")
-        save_and_open_page
       end
 
       it "links pets to pets show page" do
