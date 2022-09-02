@@ -1,5 +1,5 @@
 class AdoptersController < ApplicationController
   def show
-    @adopter = Adopter.first
+    @adopter = Adopter.find(params[:id])
   end
 end

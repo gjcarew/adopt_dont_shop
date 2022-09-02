@@ -1,5 +1,8 @@
 <h1> Application </h1>
-<p><%= @adopter.name %></p>
-<p><%= @adopter.address %></p>
-<p><%= @adopter.description %></p>
-<p><%= @adopter.application_status %></p>
+<p>Pets to adopt: <% @adopter.pets.each do |pet| %>
+    <%= pet.name %>
+<% end %> </p>
+<p>Name: <%= @adopter.name %></p>
+<p>Address: <%= @adopter.address %></p>
+<p>Description: <%= @adopter.description %></p>
+<p>Application status: <%= @adopter.application_status %></p>
