@@ -7,8 +7,8 @@ RSpec.describe 'application show page' do
         @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
         @pirate = @shelter_1.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
         @clawdia = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
-        @adopter = Adopter.create!(name: "Gavin", address: "123 turing st.", description: "feed them", application_status: "Pending")
-        @gavin = @pirate.adopters.create!(name: "Gavin", address: "123 turing st.", description: "feed them", application_status: "Pending")
+        
+        @gavin = @pirate.adopters.create!(name: "Gavin", address: "123 turing st., Denver, CO 80302", street: '123 turing st.', city: 'Denver', state: 'CO', zip_code: '80302', description: "feed them", application_status: "Pending")
         @gavin.pets << @clawdia
         visit "/adopters/#{@gavin.id}"
       end
