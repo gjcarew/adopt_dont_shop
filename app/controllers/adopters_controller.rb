@@ -1,6 +1,11 @@
 class AdoptersController < ApplicationController
   def show
     @adopter = Adopter.find(params[:id])
+    if params[:search].present?
+      @pets = Pet.search(params[:search])
+    else
+      @pets = Pet.adoptable
+    end
   end
 
   def new
