@@ -1,0 +1,9 @@
+<h1> Application </h1>
+<p>Name: <%= @adopter.name %></p>
+<p>Address: <%= @adopter.address %></p>
+<p>Description: <%= @adopter.description %></p>
+<p>Application status: <%= @adopter.application_status %></p>
+
+<p>Pets to adopt: <% @adopter.pets.each do |pet| %></p>
+<p> <%= link_to pet.name, "/pets/#{pet.id}" %></p>
+<p><% end %></p>
