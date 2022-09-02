@@ -39,6 +39,14 @@ RSpec.describe 'application show page' do
         expect(page).to have_content(@lucille_bald.name)
         expect(page).not_to have_content(@reject.name)
       end
+
+      it 'can search for pets with partial matching' do
+        fill_in 'Search', with: 'Luc'
+        click_on('Search')
+        expect(current_path).to eq("/adopters/#{@gavin.id}")
+        expect(page).to have_content(@lucille_bald.name)
+        expect(page).not_to have_content(@reject.name)
+      end
     end
   end
 end
