@@ -47,6 +47,16 @@ RSpec.describe 'application show page' do
         expect(page).to have_content(@lucille_bald.name)
         expect(page).not_to have_content(@reject.name)
       end
+
+      it "has 'adopt this pet' button that links to application show page" do
+        first(:link, "Adopt this Pet").click
+        # first(:button, "Adopt this Pet").has_button?
+        # click_button('Adopt this Pet')
+        save_and_open_page
+        expect(current_path).to eq("/adopters/#{@gavin.id}")
+        expect(page).to have_content(@lucille_bald.name)
+
+      end
     end
   end
 end
