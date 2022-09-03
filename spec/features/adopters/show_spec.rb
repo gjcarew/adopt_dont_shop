@@ -56,7 +56,7 @@ RSpec.describe 'application show page' do
         expect(page).not_to have_content(@reject.name)
       end
 
-      xit 'a pet can be added to an application for adoption' do
+      it 'a pet can be added to an application for adoption' do
         within "#adoptable-#{@lucille_bald.id}" do
           click_button('Adopt this Pet')
         end
