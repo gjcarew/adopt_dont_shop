@@ -16,5 +16,10 @@
 <% end %>
 
 <% @pets.each do |pet| %>
-  <%= pet.name %>
+  <span id="adoptable-<%= pet.id%>">
+    <%= pet.name %> <%= button_to "Adopt this Pet", 
+                                "/adopters/#{@adopter.id}",
+                                params: {pet: pet.id, applicant: @adopter.id},
+                                method: :patch %>
+  </span>
 <% end %>

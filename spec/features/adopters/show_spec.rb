@@ -47,6 +47,23 @@ RSpec.describe 'application show page' do
         expect(page).to have_content(@lucille_bald.name)
         expect(page).not_to have_content(@reject.name)
       end
+
+      it 'searches are case insensitive' do
+        fill_in 'Search', with: 'lUc'
+        click_on('Search')
+        expect(current_path).to eq("/adopters/#{@gavin.id}")
+        expect(page).to have_content(@lucille_bald.name)
+        expect(page).not_to have_content(@reject.name)
+      end
+
+      xit 'a pet can be added to an application for adoption' do
+        within "#adoptable-#{@lucille_bald.id}" do
+          click_button('Adopt this Pet')
+        end
+        expect(@gavin.reload.pets.last).to eq(@lucille_bald)
+        expect(page).to have_link('Lucille Bald')
+        expect(current_path).to eq("/adopters/#{@gavin.id}")
+      end
     end
   end
 end

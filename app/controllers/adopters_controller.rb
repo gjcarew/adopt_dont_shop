@@ -22,6 +22,13 @@ class AdoptersController < ApplicationController
     end
   end
 
+  def update
+    adopter = Adopter.find(params[:applicant])
+    pet = Pet.find(params[:pet])
+    adopter.pets << pet
+    redirect_to "/adopters/#{adopter.id}"
+  end
+
   private
 
   def adopter_params
