@@ -48,6 +48,14 @@ RSpec.describe 'application show page' do
         expect(page).not_to have_content(@reject.name)
       end
 
+      it 'searches are case insensitive' do
+        fill_in 'Search', with: 'lUc'
+        click_on('Search')
+        expect(current_path).to eq("/adopters/#{@gavin.id}")
+        expect(page).to have_content(@lucille_bald.name)
+        expect(page).not_to have_content(@reject.name)
+      end
+
       it "has 'adopt this pet' button that links to application show page" do
         within "#adoptable-#{@lucille_bald.id}" do
           click_button('Adopt this Pet')

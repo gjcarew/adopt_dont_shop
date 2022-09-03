@@ -1,0 +1,14 @@
+<h1> Admin Applications </h1>
+<h3> Applicant name: </h3> <span> <%= @adopter.name %> </span>
+<h3> Pets on application: </h3>
+<% @adopter.pets.each do |pet| %>
+  <p style="display:inline;"><%= pet.name %></p>
+  <% if pet.adoptable%>
+    <%= button_to "Approve Application for #{pet.name}", 
+                                  "/admin/adopters/#{@adopter.id}",
+                                  params: {pet: pet.id, applicant: @adopter.id},
+                                  method: :patch %> 
+  <% else %>
+  <p style="color:green;display:inline;">  Approved </p>
+  <% end %>
+<% end %>

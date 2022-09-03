@@ -1,0 +1,12 @@
+<h1> Shelters Administration </h1>
+
+<% @shelters.each do |shelter| %>
+  <h3 class='shelter-name'> <%= shelter.name %> </h3>
+<% end %>
+<div id='pending'> 
+<h2> Shelters with pending applications </h2>
+<% @shelters.each do |shelter| %>
+  <% if !shelter.pets.empty? %>
+   <p> <%= shelter.name %> </p>
+  <% end %>
+<% end %>
