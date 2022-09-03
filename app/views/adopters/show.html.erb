@@ -8,18 +8,25 @@
 <p> <%= link_to pet.name, "/pets/#{pet.id}" %></p>
 <p><% end %></p>
 
-<h3> Add a Pet to this Application: </h3>
-<%= form_with url: "/adopters/#{@adopter.id}", method: :get, local: true do |f| %>
-  <%= f.label :search %>
-  <%= f.text_field :search %>
-  <%= f.submit "Search" %>
+<h3> Submit application </h3>
+<%= form_with url: "/adopters/#{@adopter.id}", method: :patch, local: true do |f| %>
+  <%= f.label :"Why i am a good owner" %>
+  <%= f.text_field :"Why i am a good owner" %>
+  <%= f.submit "Submit application" %>
 <% end %>
 
-<% @pets.each do |pet| %>
-  <span id="adoptable-<%= pet.id%>">
-    <%= pet.name %> <%= button_to "Adopt this Pet", 
-                                "/adopters/#{@adopter.id}",
-                                params: {pet: pet.id, applicant: @adopter.id},
-                                method: :patch %>
-  </span>
-<% end %>
+<% if @adopter.application_status == "In Progress" %>
+
+  <h3> Add a Pet to this Application: </h3>
+  <%= form_with url: "/adopters/#{@adopter.id}", method: :get, local: true do |f| %>
+    <%= f.label :search %>
+    <%= f.text_field :search %>
+    <%= f.submit "Search" %>
+  <% end %>
+
+  <% @pets.each do |pet| %>
+  <div id="adoptable-<%=pet.id%>"> <%= pet.name %> <%= button_to "Adopt this Pet",
+    "/adopters/#{@adopter.id}", method: :patch, params:{pet: pet.id, adopter: @adopter.id}%></div>
+  <% end %>
+<%  end %>
+

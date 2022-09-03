@@ -23,9 +23,15 @@ class AdoptersController < ApplicationController
   end
 
   def update
-    adopter = Adopter.find(params[:applicant])
-    pet = Pet.find(params[:pet])
-    adopter.pets << pet
+    adopter = Adopter.find(params[:id])
+    if params[:commit] == "Submit application"
+      adopter[:application_status] = "Pending"
+      adopter[:description] = params[:"Why i am a good owner"]
+    else
+      pet = Pet.find(params[:pet])
+      adopter.pets << pet
+    end
+    adopter.save
     redirect_to "/adopters/#{adopter.id}"
   end
 
