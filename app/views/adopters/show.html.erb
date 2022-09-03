@@ -16,5 +16,6 @@
 <% end %>
 
 <% @pets.each do |pet| %>
-<p> <%= pet.name %> <%= link_to "Adopt this Pet", url: "/adopters/#{@adopter.id}", match: :first%></p>
+<div id="adoptable-<%=pet.id%>"> <%= pet.name %> <%= button_to "Adopt this Pet",
+  "/adopters/#{@adopter.id}", method: :patch, params:{pet: pet.id, adopter: @adopter.id}%></div>
 <% end %>

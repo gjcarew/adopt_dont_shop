@@ -49,12 +49,15 @@ RSpec.describe 'application show page' do
       end
 
       it "has 'adopt this pet' button that links to application show page" do
-        first(:link, "Adopt this Pet").click
+        # first(:link, "Adopt this Pet").click
         # first(:button, "Adopt this Pet").has_button?
-        # click_button('Adopt this Pet')
-        save_and_open_page
+        within "#adoptable-#{@lucille_bald.id}" do
+          click_button('Adopt this Pet')
+
+        end
+        expect(@gavin.pets.last).to eq(@lucille_bald)
         expect(current_path).to eq("/adopters/#{@gavin.id}")
-        expect(page).to have_content(@lucille_bald.name)
+        expect(page).to have_link(@lucille_bald.name)
 
       end
     end
