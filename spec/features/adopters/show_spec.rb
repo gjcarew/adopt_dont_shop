@@ -75,6 +75,13 @@ RSpec.describe 'application show page' do
         expect(page).to have_content(@clawdia.name)
         expect(page).not_to have_button("Adopt this Pet")
       end
+
+      xit "does not show submit my application when no pets added" do
+        expect(page).not_to have_button("Submit application")
+        click_button("Adopt this Pet")
+        expect(page).to have_button("Submit application")
+
+      end
     end
   end
 end
