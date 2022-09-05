@@ -16,7 +16,7 @@ RSpec.describe 'Admin application show page' do
     expect(page).to have_button("Approve Application for Mr. Pirate")
   end
 
-  describe 'when I click the button' do
+  describe 'when I click the approve button' do
     before :each do
       visit "/admin/adopters/#{@gavin.id}"
       click_button "Approve Application for Clawdia"
@@ -34,6 +34,33 @@ RSpec.describe 'Admin application show page' do
 
     it 'There is an indicator next to the pet to show they have been approved' do
       expect(page).to have_content("Approved")
+    end
+  end
+
+  it 'There is a button to reject the application for a specific pet' do
+    visit "/admin/adopters/#{@gavin.id}"
+    expect(page).to have_button("Reject Application for Clawdia")
+    expect(page).to have_button("Reject Application for Mr. Pirate")
+  end
+
+  describe 'when I click the reject button' do
+    before :each do
+      visit "/admin/adopters/#{@gavin.id}"
+      click_button "Reject Application for Clawdia"
+    end
+
+    it "I'm taken back to the admin application show page" do
+      expect(current_path).to eq("/admin/adopters/#{@gavin.id}")
+    end
+
+    it 'There is no longer a button to approve the pet' do
+
+      expect(page).not_to have_button("Reject Application for Clawdia")
+      expect(page).to have_button("Reject Application for Mr. Pirate")
+    end
+
+    it 'There is an indicator next to the pet to show they have been rejected' do
+      expect(page).to have_content("Rejected")
     end
   end
 end
