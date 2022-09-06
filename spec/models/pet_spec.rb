@@ -41,4 +41,38 @@ RSpec.describe Pet, type: :model do
       end
     end
   end
+
+  describe 'approve and reject applications as admin' do
+    before :each do
+      @gavin = Adopter.create!(name: "Gavin", address: "123 turing st., Denver, CO 80302", street: '123 turing st.', city: 'Denver', state: 'CO', zip_code: '80302', description: "feed them", application_status: "Pending")
+      @gavin.pets << @pet_1
+    end
+    it 'can check application status for a single pet' do
+      expect(@pet_1.pet_application_status(@gavin)).to be_nil
+    end
+
+    it 'can approve applications for a pet' do
+      @pet_1.approve(@gavin)
+      expect(@pet_1.pet_application_status(@gavin)).to be(true)
+    end
+
+    it 'can reject applications for a pet' do
+      @pet_1.reject(@gavin)
+      expect(@pet_1.pet_application_status(@gavin)).to be(false)
+    end
+
+    it 'if a pet is rejected, the application is rejected' do
+      expect(@gavin.application_status).to eq("Pending")
+      @pet_1.reject(@gavin)
+      expect(@gavin.application_status).to eq("Rejected")
+    end
+
+    it 'if all pets are approved, the application is approved' do
+      @gavin.pets << @pet_2
+      @pet_1.approve(@gavin)
+      expect(@gavin.application_status).to eq("Pending")
+      @pet_2.approve(@gavin)
+      expect(@gavin.application_status).to eq("Approved")
+    end
+  end
 end

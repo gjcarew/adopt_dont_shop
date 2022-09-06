@@ -3,12 +3,20 @@
 <h3> Pets on application: </h3>
 <% @adopter.pets.each do |pet| %>
   <p style="display:inline;"><%= pet.name %></p>
-  <% if pet.adoptable%>
-    <%= button_to "Approve Application for #{pet.name}", 
-                                  "/admin/adopters/#{@adopter.id}",
-                                  params: {pet: pet.id, applicant: @adopter.id},
-                                  method: :patch %> 
-  <% else %>
-  <p style="color:green;display:inline;">  Approved </p>
+  <% if pet.adoptable  %>
+    <% if pet.pet_application_status(@adopter) == true %>
+      <p style="color:green;display:inline;">  Approved </p>
+    <% elsif  pet.pet_application_status(@adopter) == false %>
+      <p style="color:red;display:inline;">  Rejected </p>
+    <% else %>
+      <%= button_to "Approve Application for #{pet.name}", 
+                                    "/admin/adopters/#{@adopter.id}",
+                                    params: {pet: pet.id, applicant: @adopter.id, pet_approved: true},
+                                    method: :patch %> 
+      <%= button_to "Reject Application for #{pet.name}", 
+                                    "/admin/adopters/#{@adopter.id}",
+                                    params: {pet: pet.id, applicant: @adopter.id, pet_approved: false},
+                                    method: :patch %> 
+    <% end %>
   <% end %>
 <% end %>
