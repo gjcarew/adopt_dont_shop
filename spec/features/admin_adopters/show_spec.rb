@@ -73,7 +73,6 @@ RSpec.describe 'Admin application show page' do
   end
   
   it 'Approved/rejected pets on one application do not affect other applications' do
-
     morgan = Adopter.create!(name: "Morgan", address: "123 turing st., Denver, CO 80302", street: '123 turing st.', city: 'Denver', state: 'CO', zip_code: '80302', description: "feed them", application_status: "In Progress")
     morgan.pets << @clawdia
     morgan.pets << @pirate
@@ -83,5 +82,12 @@ RSpec.describe 'Admin application show page' do
     visit "/admin/adopters/#{@gavin.id}"
     expect(page).to have_button("Approve Application for Clawdia")
     expect(page).to have_button("Reject Application for Clawdia")
+  end
+
+  it 'One or more pets rejected on an application' do
+    visit "/admin/adopters/#{@gavin.id}"
+    click_button "Approve Application for Clawdia"
+    click_button "Reject Application for Mr. Pirate"
+    expect(page).to have_content("Application status: Rejected")
   end
 end
