@@ -8,8 +8,7 @@
 <p> <%= link_to pet.name, "/pets/#{pet.id}" %></p>
 <p><% end %></p>
 
-<% if @adopter.pets.count == 0 %>
-<% else @adopter.pets.count >= 1 %>
+<% if @adopter.pets.count >= 1 %>
   <h3> Submit application </h3>
   <%= form_with url: "/adopters/#{@adopter.id}", method: :patch, local: true do |f| %>
     <%= f.label :"Why i am a good owner" %>
