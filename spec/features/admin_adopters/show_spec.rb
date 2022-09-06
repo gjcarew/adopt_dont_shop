@@ -35,5 +35,13 @@ RSpec.describe 'Admin application show page' do
     it 'There is an indicator next to the pet to show they have been approved' do
       expect(page).to have_content("Approved")
     end
+
+  describe 'After i approve all pets' do
+    it "shows pet is no longer adoptable" do
+        visit "/admin/adopters/#{@gavin.id}"
+        expect(page).to have_content("Approved")
+        visit "/pets/#{pet.id}"
+      end
+    end
   end
 end
