@@ -4,9 +4,9 @@
 <% @adopter.pets.each do |pet| %>
   <p style="display:inline;"><%= pet.name %></p>
   <% if pet.adoptable  %>
-    <% if pet.application_status(@adopter) == true %>
+    <% if pet.pet_application_status(@adopter) == true %>
       <p style="color:green;display:inline;">  Approved </p>
-    <% elsif  pet.application_status(@adopter) == false %>
+    <% elsif  pet.pet_application_status(@adopter) == false %>
       <p style="color:red;display:inline;">  Rejected </p>
     <% else %>
       <%= button_to "Approve Application for #{pet.name}", 
