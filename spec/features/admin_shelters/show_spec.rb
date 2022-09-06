@@ -18,4 +18,13 @@ RSpec.describe 'the admin shelters show page' do
   it "shows shelters full address" do
     expect(page).to have_content("Harlingen, TX")
   end
+
+  it "shows a section for statistics" do
+    expect(page).to have_content("Statistics")
+  end
+
+  it "number of pets adoptable" do
+    save_and_open_page
+    expect(page).to have_content("PETS AVAILABLE")
+  end
 end
