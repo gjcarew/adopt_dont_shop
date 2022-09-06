@@ -24,7 +24,7 @@ RSpec.describe 'the admin shelters show page' do
   end
 
   it "number of pets adoptable" do
-    save_and_open_page
     expect(page).to have_content("PETS AVAILABLE")
   end
+
 end
