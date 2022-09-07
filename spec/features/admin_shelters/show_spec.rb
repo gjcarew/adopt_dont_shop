@@ -1,14 +1,11 @@
 require 'rails_helper'
 
 RSpec.describe 'the admin shelters show page' do
-  before :each do
-    @shelter_1 = Shelter.create(name: 'Aurora shelter', city: 'Aurora, CO', foster_program: false, rank: 9)
-    @shelter_2 = Shelter.create(name: 'RGV animal shelter', city: 'Harlingen, TX', foster_program: false, rank: 5)
-    @shelter_3 = Shelter.create(name: 'Fancy pets of Colorado', city: 'Denver, CO', foster_program: true, rank: 10)
-    @gavin = Adopter.create!(name: "Gavin", address: "123 turing st., Denver, CO 80302", street: '123 turing st.', city: 'Denver', state: 'CO', zip_code: '80302', description: "feed them", application_status: "Pending")
-    @clawdia = @shelter_1.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
-    @gavin.pets << @clawdia
-    visit "/admin/shelters/#{@shelter_1.id}"
+  before :each do 
+    @shelter = Shelter.create(name: 'RGV animal shelter', address: 'Mock address', city: 'Harlingen, TX', foster_program: false, rank: 5)
+    clawdia = @shelter.pets.create(name: 'Clawdia', breed: 'shorthair', age: 3, adoptable: true)
+    pirate = @shelter.pets.create(name: 'Mr. Pirate', breed: 'tuxedo shorthair', age: 5, adoptable: true)
+    visit "/admin/shelters/#{@shelter.id}"
   end
 
   it "shows shelters name" do
@@ -16,7 +13,7 @@ RSpec.describe 'the admin shelters show page' do
   end
 
   it "shows shelters full address" do
-    expect(page).to have_content("Harlingen, TX")
+    expect(page).to have_content("Mock address")
   end
 
   it "shows a section for statistics" do
@@ -24,7 +21,7 @@ RSpec.describe 'the admin shelters show page' do
   end
 
   it "number of pets adoptable" do
-    expect(page).to have_content("PETS AVAILABLE")
+    expect(page).to have_content("PETS AVAILABLE: 2")
   end
 
 end

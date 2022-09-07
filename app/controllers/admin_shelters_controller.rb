@@ -5,6 +5,6 @@ class AdminSheltersController < ApplicationController
   end
 
   def show
-    @shelters = Shelter.find_by_sql("SELECT * FROM shelters ORDER BY shelters.name")
+    @shelter = Shelter.find_by_sql(["SELECT * FROM shelters WHERE id = ?", params[:id]]).first
   end
 end
