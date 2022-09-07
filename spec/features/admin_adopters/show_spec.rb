@@ -27,7 +27,6 @@ RSpec.describe 'Admin application show page' do
     end
 
     it 'There is no longer a button to approve the pet' do
-
       expect(page).not_to have_button("Approve Application for Clawdia")
       expect(page).to have_button("Approve Application for Mr. Pirate")
     end
@@ -35,13 +34,18 @@ RSpec.describe 'Admin application show page' do
     it 'There is an indicator next to the pet to show they have been approved' do
       expect(page).to have_content("Approved")
     end
+  end
 
   describe 'After i approve all pets' do
-    xit "shows pet is no longer adoptable" do
-        visit "/admin/adopters/#{@gavin.id}"
-        expect(page).to have_content("Approved")
-        visit "/pets/#{pet.id}"
-      end
+
+    it "shows pet is no longer adoptable" do
+      visit "/admin/adopters/#{@gavin.id}"
+      click_button "Approve Application for Clawdia"
+      click_button "Approve Application for Mr. Pirate"
+      visit "/pets/#{@clawdia.id}"
+      expect(page).to have_content("Adoptable: false")
+      visit "/pets/#{@pirate.id}"
+      expect(page).to have_content("Adoptable: false")
     end
   end
 
@@ -62,7 +66,6 @@ RSpec.describe 'Admin application show page' do
     end
 
     it 'There is no longer a button to approve the pet' do
-
       expect(page).not_to have_button("Reject Application for Clawdia")
       expect(page).to have_button("Reject Application for Mr. Pirate")
     end
@@ -71,7 +74,7 @@ RSpec.describe 'Admin application show page' do
       expect(page).to have_content("Rejected")
     end
   end
-  
+
   it 'Approved/rejected pets on one application do not affect other applications' do
     morgan = Adopter.create!(name: "Morgan", address: "123 turing st., Denver, CO 80302", street: '123 turing st.', city: 'Denver', state: 'CO', zip_code: '80302', description: "feed them", application_status: "In Progress")
     morgan.pets << @clawdia

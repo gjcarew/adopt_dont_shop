@@ -1,9 +1,9 @@
 <h1> Shelters Administration </h1>
 
 <% @shelters.each do |shelter| %>
-  <h3 class='shelter-name'> <%= shelter.name %> </h3>
+  <h3 class='shelter-name'> <%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %> </h3>
 <% end %>
-<div id='pending'> 
+<div id='pending'>
 <h2> Shelters with pending applications </h2>
 <% @shelters.each do |shelter| %>
   <% if !shelter.pets.empty? %>

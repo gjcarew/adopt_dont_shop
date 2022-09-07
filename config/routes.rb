@@ -43,6 +43,7 @@ Rails.application.routes.draw do
   patch '/adopters/:id', to: 'adopters#update'
 
   get '/admin/shelters', to: 'admin_shelters#index'
+  get '/admin/shelters/:id', to: 'admin_shelters#show'
   get '/admin/adopters/:id', to: 'admin_adopters#show'
   patch '/admin/adopters/:id', to: 'admin_adopters#update'
 end

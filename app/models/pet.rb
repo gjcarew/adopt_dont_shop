@@ -40,5 +40,4 @@ class Pet < ApplicationRecord
       pet.update(adoptable: false)
     end
   end
-
 end
