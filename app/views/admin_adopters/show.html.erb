@@ -10,7 +10,7 @@
     <% if pet.pet_application_status(@adopter) == true %>
       <p style="color:green;display:inline;">  Approved </p> </br>
     <% elsif  pet.pet_application_status(@adopter) == false %>
-      <p style="color:red;display:inline;">  Rejected </p>
+      <p style="color:red;display:inline;">  Rejected </p> </br>
     <% else %>
       <%= render partial: 'button', locals: {button_text: "Approve Application for #{pet.name}",
                                            true_false: true, 

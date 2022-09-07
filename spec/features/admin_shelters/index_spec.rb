@@ -26,6 +26,15 @@ RSpec.describe 'the admin shelters index' do
           expect(page).not_to have_content(@shelter_3.name)
         end
       end
+
+      it 'Pending shelters are in alphabetical order' do
+        @shelter_2.pets.create(name: 'Lucille Bald', breed: 'sphynx', age: 8, adoptable: true)
+        @shelter_3.pets.create(name: 'Gross Cat', breed: 'please dont let it', age: 42, adoptable: true)
+        visit '/admin/shelters'
+        expect(all('.pending-shelter')[0].text).to eq(@shelter_1.name)
+        expect(all('.pending-shelter')[1].text).to eq(@shelter_3.name)
+        expect(all('.pending-shelter')[2].text).to eq(@shelter_2.name)
+      end
     end
   end
 end
