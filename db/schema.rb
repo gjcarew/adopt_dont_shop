@@ -53,6 +53,7 @@ ActiveRecord::Schema.define(version: 2022_09_01_214814) do
     t.boolean "foster_program"
     t.string "name"
     t.string "city"
+    t.string "address"
     t.integer "rank"
     t.datetime "created_at", null: false
     t.datetime "updated_at", null: false

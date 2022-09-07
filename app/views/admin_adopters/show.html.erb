@@ -1,5 +1,6 @@
 <h1> Admin Applications </h1>
 <h3> Applicant name: </h3> <span> <%= @adopter.name %> </span>
+<p> Application status: <%= @adopter.application_status %></p>
 <h3> Pets on application: </h3>
 <% @adopter.pets.each do |pet| %>
   <p style="display:inline;"><%= pet.name %></p>
@@ -18,5 +19,11 @@
                                     params: {pet: pet.id, applicant: @adopter.id, pet_approved: false},
                                     method: :patch %> 
     <% end %>
+  <% else %>  
+    <%= button_to "Reject Application for #{pet.name}", 
+                                    "/admin/adopters/#{@adopter.id}",
+                                    params: {pet: pet.id, applicant: @adopter.id, pet_approved: false},
+                                    method: :patch %>
+    <p style="color:red;display:inline;"> Already adopted </p>
   <% end %>
 <% end %>
