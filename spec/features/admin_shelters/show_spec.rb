@@ -24,4 +24,8 @@ RSpec.describe 'the admin shelters show page' do
     expect(page).to have_content("PETS AVAILABLE: 2")
   end
 
+  it "average age of adoptable pets" do
+    expect(page).to have_content("AVERAGE AGE OF ADOPTABLE PETS: 4")
+  end
+
 end

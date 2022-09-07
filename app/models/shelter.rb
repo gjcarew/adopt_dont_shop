@@ -28,6 +28,10 @@ class Shelter < ApplicationRecord
     adoptable_pets.count
   end
 
+  def adoptable_avg_age
+    adoptable_pets.average(:age)
+  end
+
   def alphabetical_pets
     adoptable_pets.order(name: :asc)
   end

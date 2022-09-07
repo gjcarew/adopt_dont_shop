@@ -104,7 +104,6 @@ RSpec.describe 'Admin application show page' do
 
     it 'and one application is approved, the other can only be rejected' do
       visit "/admin/adopters/#{@gavin.id}"
-      save_and_open_page
       expect(page).to have_button('Reject Application for Clawdia')
       expect(page).not_to have_button('Approve Application for Clawdia')
     end
