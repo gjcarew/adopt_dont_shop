@@ -5,7 +5,7 @@
 <% end %>
 <div id='pending'>
   <h2> Shelters with pending applications </h2>
-  <% action_required.each do |shelter| %>
+  <% @shelters.reverse.each do |shelter| %>
     <% if !shelter.pets.empty? %>
     <p class="pending-shelter"> <%= shelter.name %> </p>
     <% end %>
