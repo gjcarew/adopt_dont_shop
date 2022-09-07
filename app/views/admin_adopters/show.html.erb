@@ -19,5 +19,11 @@
                                     params: {pet: pet.id, applicant: @adopter.id, pet_approved: false},
                                     method: :patch %> 
     <% end %>
+  <% else %>  
+    <%= button_to "Reject Application for #{pet.name}", 
+                                    "/admin/adopters/#{@adopter.id}",
+                                    params: {pet: pet.id, applicant: @adopter.id, pet_approved: false},
+                                    method: :patch %>
+    <p style="color:red;display:inline;"> Already adopted </p>
   <% end %>
 <% end %>

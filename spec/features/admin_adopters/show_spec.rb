@@ -90,4 +90,24 @@ RSpec.describe 'Admin application show page' do
     click_button "Reject Application for Mr. Pirate"
     expect(page).to have_content("Application status: Rejected")
   end
+
+  describe 'when a pet has more than one application on them' do
+    before :each do
+      @morgan = Adopter.create!(name: "Morgan", address: "123 turing st., Denver, CO 80302", street: '123 turing st.', city: 'Denver', state: 'CO', zip_code: '80302', description: "feed them", application_status: "In Progress")
+      @morgan.pets << @clawdia
+      visit "/admin/adopters/#{@morgan.id}"
+      click_button 'Approve Application for Clawdia'
+    end
+
+    it 'and one application is approved, the other can only be rejected' do
+      visit "/admin/adopters/#{@gavin.id}"
+      expect(page).to have_button('Reject Application for Clawdia')
+      expect(page).not_to have_button('Approve Application for Clawdia')
+    end
+
+    it 'there is a message that that the pet has been approved for adoption' do
+      visit "/admin/adopters/#{@gavin.id}"
+      expect(page).to have_content("Already adopted")
+    end
+  end
 end

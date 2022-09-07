@@ -27,9 +27,18 @@ class Pet < ApplicationRecord
   def approve(adopter)
     applicant = AdopterPet.where("pet_id = ? and adopter_id = ?", self.id, adopter.id)
     applicant.first.update(status: true)
-    all_pets = AdopterPet.where("adopter_id = ?", adopter.id)
-    if all_pets.all? { |pet| pet.status }
+    all_adopter_pets = AdopterPet.where("adopter_id = ?", adopter.id)
+    if all_adopter_pets.all? { |pet| pet.status }
       adopter.update(application_status: "Approved")
+      pets_unadoptable(all_adopter_pets)
     end
   end
+
+  def pets_unadoptable(all_adopter_pets)
+    all_adopter_pets.each do |adopter_pet|
+      pet = Pet.find(adopter_pet.pet_id)
+      pet.update(adoptable: false)
+    end
+  end
+
 end
