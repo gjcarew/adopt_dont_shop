@@ -4,9 +4,10 @@
   <h3 class='shelter-name'> <%= link_to "#{shelter.name}", "/admin/shelters/#{shelter.id}" %> </h3>
 <% end %>
 <div id='pending'>
-<h2> Shelters with pending applications </h2>
-<% @shelters.each do |shelter| %>
-  <% if !shelter.pets.empty? %>
-   <p> <%= shelter.name %> </p>
+  <h2> Shelters with pending applications </h2>
+  <% action_required.each do |shelter| %>
+    <% if !shelter.pets.empty? %>
+    <p class="pending-shelter"> <%= shelter.name %> </p>
+    <% end %>
   <% end %>
-<% end %>
+</div>
