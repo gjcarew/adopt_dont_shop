@@ -12,20 +12,20 @@
     <% elsif  pet.pet_application_status(@adopter) == false %>
       <p style="color:red;display:inline;">  Rejected </p>
     <% else %>
-      <%= button_to "Approve Application for #{pet.name}", 
-                                    "/admin/adopters/#{@adopter.id}",
-                                    params: {pet: pet.id, applicant: @adopter.id, pet_approved: true},
-                                    method: :patch %> 
-      <%= button_to "Reject Application for #{pet.name}", 
-                                    "/admin/adopters/#{@adopter.id}",
-                                    params: {pet: pet.id, applicant: @adopter.id, pet_approved: false},
-                                    method: :patch %> 
+      <%= render partial: 'button', locals: {button_text: "Approve Application for #{pet.name}",
+                                           true_false: true, 
+                                           pet_id: pet.id,
+                                           adopter_id: @adopter_id} %>
+      <%= render partial: 'button', locals: {button_text: "Reject Application for #{pet.name}",
+                                           true_false: false, 
+                                           pet_id: pet.id,
+                                           adopter_id: @adopter_id} %>
     <% end %>
   <% else %>  
-    <%= button_to "Reject Application for #{pet.name}", 
-                                    "/admin/adopters/#{@adopter.id}",
-                                    params: {pet: pet.id, applicant: @adopter.id, pet_approved: false},
-                                    method: :patch %>
+    <%= render partial: 'button', locals: {button_text: "Reject Application for #{pet.name}",
+                                           true_false: false, 
+                                           pet_id: pet.id,
+                                           adopter_id: @adopter_id} %>
     <p style="color:red;display:inline;"> Already adopted </p>
   <% end %>
 <% end %>

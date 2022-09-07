@@ -1,0 +1,3 @@
+<%= button_to button_text, "/admin/adopters/#{@adopter.id}",
+              params: {pet: pet_id, applicant: adopter_id, pet_approved: true_false},
+              method: :patch %> 
